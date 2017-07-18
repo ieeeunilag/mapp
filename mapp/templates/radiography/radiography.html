@@ -1,0 +1,98 @@
+{% extends "layout_admin.html" %}
+{% block body %}
+
+<div class="container">
+    {% with infos = get_flashed_messages(category_filter=["info"]) %}
+    {% if infos %}
+    <div>
+    {% for info in infos %}
+    {{ info }}<br>
+    {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+    <a href="/radiography/create" class="btn btn-default" >Create</a>
+</div>
+
+<table  class="container table-bordered">
+    <thead>
+        <tr>
+            <td>
+                id
+            </td>
+            <td>
+                sur_name
+            </td>
+            <td>
+                other_name
+            </td>
+            <td>
+                address
+            </td>
+            <td>
+                age
+            </td>
+            <td>
+                edit
+            </td>
+            <td>
+                delete
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for i in radiography_list %}
+        <tr>
+            <td>
+            {{i.id}}
+            </td>
+
+            <td>
+            {{i.sur_name}}
+            </td>
+
+            <td>
+            {{i.other_name}}
+            </td>
+
+            <td>
+            {{i.address}}
+            </td>
+
+            <td>
+            {{i.age}}
+            </td>
+            <td>
+            <a class="btn btn-primary" href="/radiography/{{i.id}}" >Edit</a>
+            </td>
+            <td>
+                <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#myModal{{i.id}}">Delete</button>
+
+                        <!-- Modal -->
+                <div class="modal fade" id="myModal{{i.id}}" role="dialog">
+                    <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Are you sure you want to mark as done</h4>
+                            </div>
+                            <div class="modal-footer">
+                                <form style="display: inline-block" action="/radiography/delete" method="post">
+                                    <input type="hidden" value="{{i.id}}" name="id" />
+                                    <input type="submit" class="btn btn-danger" value="Delete" />
+                                </form>
+                                <button style="display: inline-block" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+
+</table>
+{% endblock %}
