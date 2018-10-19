@@ -5,5 +5,5 @@ $ pip install -r requirements.txt
 $ python app.py
 ~~~
 
-## How to Contribute
+## How you can Contribute
 [CONTRIBUTING](CONTRIBUTING.MD) Docs.
